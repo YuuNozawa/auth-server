@@ -1,0 +1,37 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.5'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.home'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
+	implementation 'mysql:mysql-connector-java:8.0.33'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+task runAuth(type: JavaExec) {
+	group = 'Application Runners'
+	description = 'Runs the application with the development profile'
+	main = 'com.home.auth_server.AuthServerApplication'
+	classpath = sourceSets.main.runtimeClasspath
+	systemProperty 'spring.profiles.active', 'dev'
+}
