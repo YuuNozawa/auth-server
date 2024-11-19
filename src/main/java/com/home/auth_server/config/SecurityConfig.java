@@ -57,6 +57,9 @@ public class SecurityConfig {
 
     private final DataSource dataSource;
 
+    @Value("${spring.security.oauth2.authorizationserver.issuer-uri}")
+    private String issuerUri;
+
     // クライアント情報の読み込み
     @Value("${client.ococa.client-id}")
     private String clientId;
@@ -222,7 +225,7 @@ public class SecurityConfig {
 
     @Bean 
     public AuthorizationServerSettings authorizationServerSettings() {
-        return AuthorizationServerSettings.builder().build();
+        return AuthorizationServerSettings.builder().issuer(issuerUri).build();
     }
 
     @Bean
