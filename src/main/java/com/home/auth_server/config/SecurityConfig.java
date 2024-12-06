@@ -93,7 +93,8 @@ public class SecurityConfig {
         // これにより/userinfoエンドポイントへのOPTIONSリクエスト(CORSプリフライトリクエスト)が正しく処理される.
         RequestMatcher endpointsMatcher = new OrRequestMatcher(
             authorizationServerConfigurer.getEndpointsMatcher(),
-            new AntPathRequestMatcher("/userinfo")
+            new AntPathRequestMatcher("/userinfo"),
+            new AntPathRequestMatcher("/.well-known/**")
         );
 
         http
